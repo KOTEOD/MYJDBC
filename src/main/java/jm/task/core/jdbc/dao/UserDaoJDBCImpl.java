@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    Connection connection = Util.getConnection();
+    final Connection connection = Util.getConnection();
+    static long flag = 0;
+
 
     public UserDaoJDBCImpl() {
 
@@ -23,7 +25,7 @@ public class UserDaoJDBCImpl implements UserDao {
             var statement = connection.createStatement();
             String sql = """
                     CREATE TABLE IF NOT EXISTS USERS(
-                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        id DECIMAL PRIMARY KEY,
                         name VARCHAR(50),
                         lastName VARCHAR(50),
                         age INT
@@ -56,12 +58,13 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
         try {
             String sql = """
-                    INSERT INTO USERS(name,lastName,age) VALUES (?,?,?)
+                    INSERT INTO USERS(id,name,lastName,age) VALUES (?,?,?,?)
                     """;
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, lastName);
-            statement.setByte(3, age);
+            statement.setLong(1, flag++);
+            statement.setString(2, name);
+            statement.setString(3, lastName);
+            statement.setByte(4, age);
             statement.executeUpdate();
             statement.close();
             System.out.println("INSERT INTO");
@@ -90,15 +93,14 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+        List<User> list = new ArrayList<>();
         try {
-            List<User> list = new ArrayList<>();
             var statement = Util.getConnection().createStatement();
             String sql = """
                     SELECT *
                     FROM users
                     """;
             var executeResult = statement.executeQuery(sql);
-            statement.execute(sql);
             while (executeResult.next()) {
                 User user = new User();
                 user.setId(executeResult.getLong("id"));
@@ -107,11 +109,12 @@ public class UserDaoJDBCImpl implements UserDao {
                         user.setAge(executeResult.getByte("age"));
                 list.add(user);
             }
-            System.out.println(list);
+            statement.execute(sql);
+            statement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return list;
     }
 
     @Override
