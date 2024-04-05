@@ -12,7 +12,7 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
     private final Connection connection = Util.getConnection();
     private static long flag = 0;
-    String sqlCreateUsers = """
+    private final String sqlCreateUsers = """
                     CREATE TABLE IF NOT EXISTS USERS(
                         id BIGINT PRIMARY KEY,
                         name VARCHAR(50),
@@ -21,24 +21,24 @@ public class UserDaoJDBCImpl implements UserDao {
                                         );
                     """;
 
-    String sqlDropUsers = """
+    private final String sqlDropUsers = """
                     DROP TABLE IF EXISTS USERS;
                     """;
 
-    String sqlSaveUser = """
+    private final String sqlSaveUser = """
                     INSERT INTO USERS(id,name,lastName,age) VALUES (?,?,?,?)
                     """;
 
-    String sqlRemoveUser = """
+    private final String sqlRemoveUser = """
                     DELETE FROM USERS WHERE id = ?
                     """;
 
-    String sqlGetAll = """
+    private final String sqlGetAll = """
                     SELECT *
                     FROM users
                     """;
 
-    String sqlCleanUsers = """
+    private final String sqlCleanUsers = """
                     DELETE FROM USERS
                     """;
 
