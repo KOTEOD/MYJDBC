@@ -3,7 +3,6 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import javax.persistence.Id;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,25 +13,22 @@ public class UserDaoJDBCImpl implements UserDao {
     final Connection connection = Util.getConnection();
     static long flag = 0;
 
-
     public UserDaoJDBCImpl() {
 
     }
 
     @Override
     public void createUsersTable() {
-        try {
-            var statement = connection.createStatement();
+        try (var statement = connection.createStatement()){
             String sql = """
                     CREATE TABLE IF NOT EXISTS USERS(
-                        id DECIMAL PRIMARY KEY,
+                        id BIGINT PRIMARY KEY,
                         name VARCHAR(50),
                         lastName VARCHAR(50),
                         age INT
                                         );
                     """;
             statement.execute(sql);
-            statement.close();
             System.out.println("CREATE TABLE");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -41,13 +37,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-        try {
-            var statement = Util.getConnection().createStatement();
+        try (var statement = Util.getConnection().createStatement()){
             String sql = """
                     DROP TABLE IF EXISTS USERS;
                     """;
             statement.executeUpdate(sql);
-            statement.close();
             System.out.println("DROP TABLE");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -76,7 +70,6 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void removeUserById(long id) {
         try {
-
             String sql = """
                     DELETE FROM USERS WHERE id = ?
                     """;
@@ -94,8 +87,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        try {
-            var statement = Util.getConnection().createStatement();
+        try (var statement = Util.getConnection().createStatement()){
             String sql = """
                     SELECT *
                     FROM users
@@ -110,7 +102,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 list.add(user);
             }
             statement.execute(sql);
-            statement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -119,14 +110,12 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() {
-        try {
-            var statement = connection.createStatement();
+        try (var statement = connection.createStatement()){;
             String sql = """
                     DELETE FROM USERS
                     """;
             int rowsAffected = statement.executeUpdate(sql);
             System.out.println("Удалено " + rowsAffected + " записей из таблицы USERS.");
-            statement.close();
             System.out.println("INSERT INTO");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
