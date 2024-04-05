@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class Util {
     // реализуйте настройку соеденения с БД
     private static final String USER_NAME = "roots";
-    public static final String password = "roots";
-    public static final String url = "jdbc:mysql://localhost:3306/mydbtest";
+    private static final String password = "roots";
+    private static final String url = "jdbc:mysql://localhost:3306/mydbtest";
 
     public static void main(String[] args) {
         Class<Driver> driver = Driver.class;
