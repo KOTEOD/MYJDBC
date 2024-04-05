@@ -9,11 +9,11 @@ public class Main {
 //        userDaoJDBC.createUsersTable();
 //        userDaoJDBC.dropUsersTable();
 //        userDaoJDBC.cleanUsersTable();
-//        userDaoJDBC.saveUser("ivan","lol", (byte) 25);
+        userDaoJDBC.saveUser("ivan","lol", (byte) 25);
 //        userDaoJDBC.saveUser("max","kek", (byte) 23);
 
 //        userDaoJDBC.removeUserById(1);
-        userDaoJDBC.getAllUsers().get(0);
+//        userDaoJDBC.getAllUsers();
         // реализуйте алгоритм здесь
     }
 }
