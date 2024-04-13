@@ -4,9 +4,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.*;
 ;
-        public class Main {
-            public static void main(String[] args) {
-                UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
+
+public class Main {
+    public static void main(String[] args) {
+        UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
 //        userDaoJDBC.createUsersTable();
 //        userDaoJDBC.dropUsersTable();
 //        userDaoJDBC.cleanUsersTable();
@@ -23,7 +24,9 @@ import org.hibernate.*;
         User user = new User("1", "1", (byte) 1);
         try (Session session = sessionFactory.getCurrentSession();) {
             session.beginTransaction();
-            session.save(user);
+            User entity = session.get(User.class, 1L); // Получение объекта сущности по его идентификатору
+            session.delete(entity); // Удаление объекта сущности
+
             session.getTransaction().commit();
         }
     }

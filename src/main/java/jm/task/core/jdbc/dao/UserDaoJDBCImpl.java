@@ -21,7 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         final String sqlCreateUsers = """
                 CREATE TABLE mydbtest (
-                     id SERIAL PRIMARY KEY,
+                     id SERIAL PRIMARY KEY
                      name VARCHAR(255),
                      lastName VARCHAR(255),
                      age INT
