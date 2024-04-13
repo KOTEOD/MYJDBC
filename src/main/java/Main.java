@@ -24,6 +24,7 @@ public class Main {
         User user = new User("1", "1", (byte) 1);
         try (Session session = sessionFactory.getCurrentSession();) {
             session.beginTransaction();
+            session.save(user);
             User entity = session.get(User.class, 1L); // Получение объекта сущности по его идентификатору
             session.delete(entity); // Удаление объекта сущности
 
