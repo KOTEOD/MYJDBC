@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private static final String USER_NAME = "roots";
-    private static final String password = "roots";
-    private static final String url = "jdbc:mysql://localhost:3306/mydbtest";
+    private static final String USER_NAME = "myuser";
+    private static final String password = "mypassword";
+    private static final String url = "jdbc:postgresql://localhost:5432/mydatabase";
 
     public static void main(String[] args) {
         Class<Driver> driver = Driver.class;
@@ -19,12 +19,13 @@ public class Util {
             System.out.println(e.getMessage() + "\n" + "Connect no to BD");
         }
     }
+
     static public Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, USER_NAME, password);
             System.out.println("getConnection OK");
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;
