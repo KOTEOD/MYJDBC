@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private Connection connection = Util.getConnection();
+    private final Connection connection = Util.getConnection();
     private static long indexID = 0;
 
     public UserDaoJDBCImpl() {
-
     }
 
     @Override
