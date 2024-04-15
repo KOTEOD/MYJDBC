@@ -1,0 +1,8 @@
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/Main.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/model/User.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/dao/UserDaoJDBCImpl.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/service/UserService.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/dao/UserDaoHibernateImpl.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/util/Util.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/dao/UserDao.java
+/home/kotedo/IdeaProjects/MYJDBC/src/main/java/jm/task/core/jdbc/service/UserServiceImpl.java
