@@ -20,7 +20,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void createUsersTable() {
         final String sqlCreateUsers = """
-                CREATE TABLE mydbtest (
+                CREATE TABLE USERS (
                      id SERIAL PRIMARY KEY,
                      name VARCHAR(255),
                      lastName VARCHAR(255),

@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Table(name = "mydbtest")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -18,9 +17,7 @@ public class User {
     @Column(name = "age")
     private Byte age;
 
-    public User() {
-
-    }
+    public User() {}
 
     public User(String name, String lastName, Byte age) {
         this.name = name;
