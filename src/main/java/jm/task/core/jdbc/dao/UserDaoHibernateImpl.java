@@ -4,6 +4,7 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -18,12 +19,29 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
+            final String sqlCreateUsers = """
+                CREATE TABLE mydbtest (
+                     id SERIAL PRIMARY KEY,
+                     name VARCHAR(255),
+                     lastName VARCHAR(255),
+                     age INT
+                 );
+                """;
+            Query query = session.createSQLQuery(sqlCreateUsers);
+            query.executeUpdate();
             session.getTransaction().commit();
         }
     }
 
     @Override
     public void dropUsersTable() {
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            final String sqlDropUsers = "DROP TABLE mydbtest";
+            Query query = session.createSQLQuery(sqlDropUsers);
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
     }
 
     @Override
@@ -48,7 +66,12 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            List<User> users = session.createQuery("from User").list();
+            session.getTransaction().commit();
+            return users;
+        }
     }
 
     @Override
