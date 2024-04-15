@@ -20,13 +20,13 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             final String sqlCreateUsers = """
-                CREATE TABLE mydbtest (
-                     id SERIAL PRIMARY KEY,
-                     name VARCHAR(255),
-                     lastName VARCHAR(255),
-                     age INT
-                 );
-                """;
+                    CREATE TABLE mydbtest (
+                         id SERIAL PRIMARY KEY,
+                         name VARCHAR(255),
+                         lastName VARCHAR(255),
+                         age INT
+                     );
+                    """;
             Query query = session.createSQLQuery(sqlCreateUsers);
             query.executeUpdate();
             session.getTransaction().commit();
