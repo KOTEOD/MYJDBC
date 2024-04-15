@@ -1,7 +1,5 @@
 package jm.task.core.jdbc.util;
-
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -12,7 +10,6 @@ public class Util {
     private static final String url = "jdbc:postgresql://localhost:5432/mydatabase";
 
     public static void main(String[] args) {
-        Class<Driver> driver = Driver.class;
         try (Connection connection = DriverManager.getConnection(url, USER_NAME, password)) {
             System.out.println("Connect ok to DB Transaction: " + connection.getTransactionIsolation());
         } catch (SQLException e) {
