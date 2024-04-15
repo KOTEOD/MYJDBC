@@ -5,7 +5,12 @@ public class Main {
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("1","1",(byte) 1);
-//        userService.dropUsersTable();
+        userService.saveUser("1","1",(byte) 1);
+        userService.saveUser("1","1",(byte) 1);
+        userService.saveUser("1","1",(byte) 1);
         System.out.println(userService.getAllUsers());
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
+
     }
 }
