@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final Connection connection = Util.getConnection();
     private static long indexID = 0;
 
     public UserDaoJDBCImpl() {
@@ -26,7 +25,8 @@ public class UserDaoJDBCImpl implements UserDao {
                      age INT
                  );
                 """;
-        try (var statement = connection.createStatement()) {
+        try (Connection connection = Util.getConnection();
+        var statement = connection.createStatement()) {
             statement.execute(sqlCreateUsers);
             System.out.println("CREATE TABLE");
         } catch (SQLException e) {
@@ -39,7 +39,8 @@ public class UserDaoJDBCImpl implements UserDao {
         final String sqlDropUsers = """
                 DROP TABLE IF EXISTS USERS;
                 """;
-        try (var statement = Util.getConnection().createStatement()) {
+        try (Connection connection = Util.getConnection();
+             var statement = connection.createStatement()) {
             statement.executeUpdate(sqlDropUsers);
             System.out.println("DROP TABLE");
         } catch (SQLException e) {
@@ -52,7 +53,8 @@ public class UserDaoJDBCImpl implements UserDao {
         final String sqlSaveUser = """
                 INSERT INTO USERS(id,name,lastName,age) VALUES (?,?,?,?)
                 """;
-        try (PreparedStatement statement = connection.prepareStatement(sqlSaveUser)) {
+        try (Connection connection = Util.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlSaveUser)) {
             statement.setLong(1, indexID++);
             statement.setString(2, name);
             statement.setString(3, lastName);
@@ -70,7 +72,8 @@ public class UserDaoJDBCImpl implements UserDao {
         final String sqlRemoveUser = """
                 DELETE FROM USERS WHERE id = ?
                 """;
-        try (PreparedStatement statement = connection.prepareStatement(sqlRemoveUser)) {
+        try (Connection connection = Util.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sqlRemoveUser)) {
             statement.setInt(1, (int) id);
             statement.executeUpdate();
             statement.close();
@@ -88,7 +91,8 @@ public class UserDaoJDBCImpl implements UserDao {
                 FROM users
                 """;
         List<User> list = new ArrayList<>();
-        try (var statement = Util.getConnection().createStatement()
+        try (Connection connection = Util.getConnection();
+             var statement = connection.createStatement()
              ; var executeResult = statement.executeQuery(sqlGetAll)) {
             while (executeResult.next()) {
                 User user = new User();
@@ -110,7 +114,8 @@ public class UserDaoJDBCImpl implements UserDao {
         final String sqlCleanUsers = """
                 DELETE FROM USERS
                 """;
-        try (var statement = connection.createStatement()) {
+        try (Connection connection = Util.getConnection();
+             var statement = connection.createStatement()) {
             int rowsAffected = statement.executeUpdate(sqlCleanUsers);
             System.out.println("DELETE " + rowsAffected + " USER.");
         } catch (SQLException e) {
