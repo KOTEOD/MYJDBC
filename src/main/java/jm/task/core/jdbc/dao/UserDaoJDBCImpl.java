@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     private Connection connection = Util.getConnection();
-    private static long flag = 0;
+    private static long indexID = 0;
 
     public UserDaoJDBCImpl() {
 
@@ -54,13 +54,13 @@ public class UserDaoJDBCImpl implements UserDao {
                 INSERT INTO USERS(id,name,lastName,age) VALUES (?,?,?,?)
                 """;
         try (PreparedStatement statement = connection.prepareStatement(sqlSaveUser)) {
-            statement.setLong(1, flag++);
+            statement.setLong(1, indexID++);
             statement.setString(2, name);
             statement.setString(3, lastName);
             statement.setByte(4, age);
             statement.executeUpdate();
             statement.close();
-            System.out.println("INSERT INTO");
+            System.out.println("SAVE USER: " + indexID);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -75,7 +75,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setInt(1, (int) id);
             statement.executeUpdate();
             statement.close();
-            System.out.println("INSERT INTO");
+            System.out.println("REMOVE INTO");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -112,10 +112,8 @@ public class UserDaoJDBCImpl implements UserDao {
                 DELETE FROM USERS
                 """;
         try (var statement = connection.createStatement()) {
-            ;
             int rowsAffected = statement.executeUpdate(sqlCleanUsers);
-            System.out.println("Удалено " + rowsAffected + " записей из таблицы USERS.");
-            System.out.println("INSERT INTO");
+            System.out.println("DELETE " + rowsAffected + " USER.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
