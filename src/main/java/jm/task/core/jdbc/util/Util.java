@@ -9,14 +9,6 @@ public class Util {
     private static final String password = "mypassword";
     private static final String url = "jdbc:postgresql://localhost:5432/mydatabase";
 
-    public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection(url, USER_NAME, password)) {
-            System.out.println("Connect ok to DB Transaction: " + connection.getTransactionIsolation());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage() + "\n" + "Connect no to BD");
-        }
-    }
-
     static public Connection getConnection() {
         Connection connection = null;
         try {
