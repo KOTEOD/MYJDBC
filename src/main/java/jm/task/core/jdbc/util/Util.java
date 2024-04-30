@@ -19,6 +19,8 @@ public class Util {
     private final static String DB_PASSWORD = "mypassword";
     private final static String DB_URL = "dbc:postgresql://localhost:5432/mydatabase";
     private final static String DB_DIALECT = "org.hibernate.dialect.MySQL8Dialect";
+    private static SessionFactory sessionFactory;
+
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -31,9 +33,6 @@ public class Util {
         }
         return connection;
     }
-
-    //Hibernate config
-    private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
